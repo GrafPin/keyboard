@@ -64,3 +64,77 @@ for (let j = 0; j < engListDef.length; j += 1) {
     oneDimensionalList.push(engListDef[j][i]);
   }
 }
+
+const allKeys = document.querySelectorAll('li');
+
+function valuesKeys(value) {
+  for (let i = 0; i < allKeys.length; i += 1) {
+    allKeys[i].innerHTML = value[i];
+  }
+}
+
+let lang;
+let languageStorage;
+let language = JSON.parse(localStorage.getItem(lang));
+
+if (!language) {
+  valuesKeys(oneDimensionalList);
+} else {
+  valuesKeys(language);
+}
+
+const backspace = allKeys[13];
+const tab = allKeys[14];
+const del = allKeys[27];
+const capsLock = allKeys[28];
+const enter = allKeys[41];
+const shiftLeft = allKeys[42];
+const arrUp = allKeys[53];
+const shiftRight = allKeys[54];
+const ctrlLeft = allKeys[55];
+const win = allKeys[56];
+const altLeft = allKeys[57];
+const space = allKeys[58];
+const altRight = allKeys[59];
+const ctrlRight = allKeys[60];
+const arrLeft = allKeys[61];
+const arrRight = allKeys[63];
+const arrDown = allKeys[62];
+
+backspace.classList.add('backspace');
+backspace.classList.add('functional');
+tab.classList.add('tab');
+tab.classList.add('functional');
+del.classList.add('delete');
+del.classList.add('functional');
+capsLock.classList.add('capsLock');
+capsLock.classList.add('functional');
+enter.classList.add('enter');
+enter.classList.add('functional');
+shiftLeft.classList.add('shiftLeft');
+shiftLeft.classList.add('functional');
+arrUp.classList.add('arrow');
+arrUp.classList.add('arrowUp');
+arrUp.classList.add('functional');
+shiftRight.classList.add('shiftRight');
+shiftRight.classList.add('functional');
+ctrlLeft.classList.add('ctrlLeft');
+ctrlLeft.classList.add('functional');
+win.classList.add('metaLeft');
+win.classList.add('functional');
+altLeft.classList.add('altLeft');
+altLeft.classList.add('functional');
+space.classList.add('space');
+altRight.classList.add('altRight');
+altRight.classList.add('functional');
+ctrlRight.classList.add('ctrlRight');
+ctrlRight.classList.add('functional');
+arrLeft.classList.add('arrow');
+arrLeft.classList.add('arrowLeft');
+arrLeft.classList.add('functional');
+arrRight.classList.add('arrow');
+arrRight.classList.add('arrowRight');
+arrRight.classList.add('functional');
+arrDown.classList.add('arrow');
+arrDown.classList.add('arrowDown');
+arrDown.classList.add('functional');
