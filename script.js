@@ -292,3 +292,16 @@ document.addEventListener('keyup', (event) => {
     }
   }
 });
+
+textarea.addEventListener('keydown', (event) => {
+  if (event.code === 'Tab') {
+    event.preventDefault();
+
+    textarea.setRangeText(
+      '  ',
+      textarea.selectionStart,
+      textarea.selectionStart,
+      'end',
+    );
+  }
+});
