@@ -214,3 +214,21 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
+
+document.addEventListener('keyup', (event) => {
+  for (let i = 0; i < allKeys.length; i += 1) {
+    if (event.code === keysList[i]) {
+      allKeys[i].classList.remove('keystroke');
+      break;
+    }
+  }
+
+  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    if (allKeys[0].innerHTML === '~') {
+      valuesKeys(oneDimensionalList);
+    }
+    if (allKeys[0].innerHTML === 'Ё') {
+      valuesKeys(rusListDef);
+    }
+  }
+});
