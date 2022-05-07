@@ -138,3 +138,79 @@ arrRight.classList.add('functional');
 arrDown.classList.add('arrow');
 arrDown.classList.add('arrowDown');
 arrDown.classList.add('functional');
+
+document.addEventListener('keydown', (event) => {
+  let cursorPosition = textarea.selectionStart;
+  let cursorPositionEnd = textarea.selectionEnd;
+  const beforeText = textarea.value.slice(0, cursorPosition);
+  const afterText = textarea.value.slice(cursorPosition);
+
+  for (let i = 0; i < allKeys.length; i += 1) {
+    if (event.code === keysList[i]) {
+      allKeys[i].classList.add('keystroke');
+
+      if (allKeys[i].classList.contains('functional') === false
+        && allKeys[i].classList.contains('key')) {
+        textarea.value += allKeys[i].textContent;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('enter')) {
+        textarea.value = `${beforeText}\n${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('tab')) {
+        textarea.value = `${beforeText}\t${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('arrowUp')) {
+        textarea.value = `${beforeText}\u2191${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('arrowDown')) {
+        textarea.value = `${beforeText}\u2193${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('arrowLeft')) {
+        textarea.value = `${beforeText}\u2190${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('arrowRight')) {
+        textarea.value = `${beforeText}\u2192${afterText}`;
+        cursorPosition += 1;
+      }
+
+      if (allKeys[i].classList.contains('backspace')) {
+        if (cursorPositionEnd > cursorPosition) {
+          textarea.value = textarea.value.slice(0, cursorPosition)
+            + textarea.value.slice(cursorPositionEnd);
+        } else {
+          textarea.value = beforeText.slice(0, -1) + afterText;
+          cursorPosition = cursorPosition > 0 ? cursorPosition - 1 : 0;
+        }
+      }
+
+      if (allKeys[i].classList.contains('delete')) {
+        if (cursorPositionEnd >= cursorPosition) {
+          cursorPositionEnd += 1;
+          textarea.setRangeText('', cursorPosition, cursorPositionEnd, 'preserve');
+        }
+      }
+      break;
+    }
+  }
+
+  if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+    if (allKeys[0].innerHTML === '`') {
+      valuesKeys(engListUp);
+    }
+    if (allKeys[0].innerHTML === 'ё') {
+      valuesKeys(rusListUp);
+    }
+  }
+});
