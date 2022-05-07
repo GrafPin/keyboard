@@ -49,3 +49,18 @@ const keysList = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5',
   'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight',
   'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
 ];
+
+const oneDimensionalList = [];
+
+for (let j = 0; j < engListDef.length; j += 1) {
+  const row = document.createElement('div');
+  row.classList.add('keybord-row');
+  keysContainer.append(row);
+
+  for (let i = 0; i < engListDef[j].length; i += 1) {
+    const key = document.createElement('li');
+    key.classList.add('key');
+    row.append(key);
+    oneDimensionalList.push(engListDef[j][i]);
+  }
+}
