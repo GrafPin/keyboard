@@ -232,3 +232,46 @@ document.addEventListener('keyup', (event) => {
     }
   }
 });
+
+function switchLanguage(func, ...codes) {
+  const pressed = new Set();
+
+  document.addEventListener('keydown', (event) => {
+    pressed.add(event.code);
+
+    for (const code of codes) {
+      if (!pressed.has(code)) {
+        return;
+      }
+    }
+    pressed.clear();
+
+    func();
+  });
+
+  document.addEventListener('keyup', (event) => {
+    pressed.delete(event.code);
+  });
+}
+
+switchLanguage(
+  () => {
+    if (allKeys[0].innerHTML === '~') {
+      localStorage.clear();
+      languageStorage = rusListDef;
+
+      localStorage.setItem(lang, JSON.stringify(languageStorage));
+      language = JSON.parse(localStorage.getItem(lang));
+      valuesKeys(rusListDef);
+    }
+    if (allKeys[0].innerHTML === 'Ё') {
+      localStorage.clear();
+      languageStorage = oneDimensionalList;
+      localStorage.setItem(lang, JSON.stringify(languageStorage));
+      language = JSON.parse(localStorage.getItem(lang));
+      valuesKeys(oneDimensionalList);
+    }
+  },
+  'ShiftLeft',
+  'ControlLeft',
+);
