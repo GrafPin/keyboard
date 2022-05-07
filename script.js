@@ -275,3 +275,20 @@ switchLanguage(
   'ShiftLeft',
   'ControlLeft',
 );
+
+document.addEventListener('keyup', (event) => {
+  if (event.getModifierState('CapsLock')) {
+    for (let i = 0; i < allKeys.length; i += 1) {
+      if (/^[a-zа-я]$/i.test(allKeys[i].innerHTML)) {
+        allKeys[i].innerHTML = allKeys[i].innerHTML.toUpperCase();
+      }
+    }
+  }
+  if (!event.getModifierState('CapsLock')) {
+    for (let i = 0; i < allKeys.length; i += 1) {
+      if (/^[a-zа-я]$/i.test(allKeys[i].innerHTML)) {
+        allKeys[i].innerHTML = allKeys[i].innerHTML.toLowerCase();
+      }
+    }
+  }
+});
