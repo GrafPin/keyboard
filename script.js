@@ -305,3 +305,120 @@ textarea.addEventListener('keydown', (event) => {
     );
   }
 });
+
+function virtualInput(event) {
+  let cursorPosition = textarea.selectionStart;
+  let cursorPositionEnd = textarea.selectionEnd;
+  const beforeText = textarea.value.slice(0, cursorPosition);
+  const afterText = textarea.value.slice(cursorPosition);
+
+  if (event.target.classList.contains('functional') === false
+    && event.target.classList.contains('key')) {
+    textarea.value += event.target.textContent;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('enter')) {
+    textarea.value = `${beforeText}\n${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('tab')) {
+    textarea.value = `${beforeText}\t${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('arrowUp')) {
+    textarea.value = `${beforeText}\u2191${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('arrowDown')) {
+    textarea.value = `${beforeText}\u2193${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('arrowLeft')) {
+    textarea.value = `${beforeText}\u2190${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('arrowRight')) {
+    textarea.value = `${beforeText}\u2192${afterText}`;
+    cursorPosition += 1;
+  }
+
+  if (event.target.classList.contains('backspace')) {
+    if (cursorPositionEnd > cursorPosition) {
+      textarea.value = textarea.value.slice(0, cursorPosition)
+        + textarea.value.slice(cursorPositionEnd);
+    } else {
+      textarea.value = beforeText.slice(0, -1) + afterText;
+      cursorPosition = cursorPosition > 0 ? cursorPosition - 1 : 0;
+    }
+  }
+
+  if (event.target.classList.contains('delete')) {
+    if (cursorPositionEnd >= cursorPosition) {
+      cursorPositionEnd += 1;
+      textarea.setRangeText('', cursorPosition, cursorPositionEnd, 'preserve');
+    }
+  }
+
+  textarea.blur();
+  textarea.focus();
+  textarea.selectionStart = cursorPosition;
+  textarea.selectionEnd = cursorPosition;
+}
+
+keysContainer.addEventListener('click', virtualInput);
+
+function virtualPress(event) {
+  if (event.target.classList.contains('capsLock')) {
+    if (event.target.classList.contains('keystroke')) {
+      event.target.classList.remove('keystroke');
+      for (let i = 0; i < allKeys.length; i += 1) {
+        if (/^[a-zа-я]$/i.test(allKeys[i].innerHTML)) {
+          allKeys[i].innerHTML = allKeys[i].innerHTML.toLowerCase();
+        }
+      }
+    } else {
+      event.target.classList.add('keystroke');
+      for (let i = 0; i < allKeys.length; i += 1) {
+        if (/^[a-zа-я]$/i.test(allKeys[i].innerHTML)) {
+          allKeys[i].innerHTML = allKeys[i].innerHTML.toUpperCase();
+        }
+      }
+    }
+  }
+
+  if (event.target.classList.contains('shiftLeft') || event.target.classList.contains('shiftRight')) {
+    event.target.classList.add('keystroke');
+    if (allKeys[0].innerHTML === '`') {
+      valuesKeys(engListUp);
+    } else {
+      valuesKeys(rusListUp);
+    }
+  }
+  if (event.target.tagName === 'LI') {
+    event.target.classList.add('keystroke');
+  }
+}
+
+keysContainer.addEventListener('mousedown', virtualPress);
+
+function virtualRelease(event) {
+  if (event.target.classList.contains('shiftLeft') || event.target.classList.contains('shiftRight')) {
+    event.target.classList.remove('keystroke');
+    if (allKeys[0].innerHTML === '~') {
+      valuesKeys(oneDimensionalList);
+    } else {
+      valuesKeys(rusListDef);
+    }
+  }
+  if (event.target.tagName === 'LI') {
+    event.target.classList.remove('keystroke');
+  }
+}
+
+keysContainer.addEventListener('mouseup', virtualRelease);
