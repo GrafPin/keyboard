@@ -72,7 +72,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(100, 100, 100);
+    background-image: url(./cosmos.jpg);
+    background-position: left bottom;
+    background-repeat: repeat;
+    background-size:30%;
 }
 
 textarea {
@@ -81,10 +84,10 @@ textarea {
     height: 160px;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(216, 216, 216);
     border-radius: 3px;
     background-color: white;
-    box-shadow: 0px 0px 8px 0px rgba(167, 207, 72, 0.2);
+    box-shadow: 0px 0px 6px 0px rgba(89, 226, 199, 1);
     font-size: 26px;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(44, 44, 44);
